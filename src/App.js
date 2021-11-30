@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+require('dotenv').config()
 
 export default function App() {
 	const MAX_NUMBER = 99999999999;
@@ -17,7 +18,7 @@ export default function App() {
 			if (number > MAX_NUMBER) {
 				alert(`Number must be less than ${MAX_NUMBER}`);
 			} else {
-				const res = await fetch(`http://localhost:5000/decomposition/${number}`);
+				const res = await fetch(`${process.env.REACT_APP_FETCH_URL}/decomposition/${number}`);
 				let json = await res.json();
 	
 				if (json && json.divisors) {
@@ -35,7 +36,6 @@ export default function App() {
 	return (
 		<div className="container">
 			<h3>Decomposição de número</h3>
-
 			<div className="default-flex-column">
 				<div className="inputNumber">
 					<input onChange={handleChange} type="number" step="1" placeholder="Digite o número para encontrar os divisores e primos"/>
